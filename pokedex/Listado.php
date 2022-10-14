@@ -1,3 +1,11 @@
+<?php
+include "bd.php";
+$id= $_POST['id'];
+$nombre = $_POST['nombre'];
+$foto = base64_encode($_POST['foto']);
+$conect= conenctabd();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +17,7 @@
         table,td {
             border-collapse: collapse;
 	        border: 1px solid black;
-            margin: 30px;
+            margin: auto;
             text-align: center;
       }
     </style>
@@ -17,9 +25,12 @@
 </head>
 <body>
     <div>
-        <h1>Listado de pokedexs</h1>
+        <h1>Listado de pokedex</h1>
 
-        <button name="nuevo" type="submit" class="btn btn-primary  btn-block">Nuevo </button>
+        <form action="nuevo.php" method="post"></form>
+        
+        <button name="nuevo" type="submit">Nuevo </button>
+
            
         </table>
         <table class="table table-bordered table-striped">
@@ -33,36 +44,25 @@
                 </tr>
         </thead>
         <tbody>
-        <?php
-                $sql = "SELECT * FROM pokedex"; 
-                $query = $connect -> prepare($sql); 
-                $query -> execute(); 
-                $results = $query -> fetchAll(PDO::FETCH_OBJ); 
+        <?php 
+            include('bd.php'); 
 
-                if($query -> rowCount() > 0)   { 
-                foreach($results as $result) { 
-                echo "<tr>
-                    <td>".$result -> id."</td>
-                    <td>".$result -> nombre."</td>
-                    <td>".$result -> foto."</td>
-                    <td>
-                    <form method='POST' action='".$_SERVER['PHP_SELF']."'>
-                    <input type='hidden' name='id' value='".$result -> id."'>
-                    <button name='editar'>✍</button>
-                    </form>
-                    </td>
+                $query = "select * from $pokedex";    
+                $result = mysql_query($query); 
 
-                    <td>
-                        <form  onsubmit=\"return confirm('Realmente desea eliminar el registro?');\" method='POST' action='".$_SERVER['PHP_SELF']."'>
-                            <input type='hidden' name='id' value='".$result -> id."'>
-                            <button name='eliminar'>❌</button>
-                        </form>
-                    </td>
-                </tr>";
-
-                }
-                }
-        ?>
+                while ($registro = mysql_fetch_array($result)){ 
+            echo " 
+                <tr> 
+                <td>".$registro['id']."</td> 
+                <td>".$registro['nombre']."</td> 
+                <td>".$registro['email']."</td> 
+                <td></td> 
+                <td><a href=".echo "Edita.php?id="$registro['edita'].">✍</a></td>
+                <td><a href=".echo "Elimina.php?id="$registro['elimina'].">❌</a></td>
+                </tr> 
+            "; 
+            } 
+        ?> 
         </tbody>
         </table>
     </div>
