@@ -27,9 +27,11 @@ $conect= conenctabd();
     <div>
         <h1>Listado de pokedex</h1>
 
-        <form action="nuevo.php" method="post"></form>
+        <form action="nuevo.php" method="post">
+            <button name="nuevo" type="submit">Nuevo </button>
+        </form>
         
-        <button name="nuevo" type="submit">Nuevo </button>
+        
 
            
         </table>
@@ -55,7 +57,7 @@ $conect= conenctabd();
                 <tr> 
                 <td>".$registro['id']."</td> 
                 <td>".$registro['nombre']."</td> 
-                <td>".$registro['email']."</td> 
+                <td>".$registro['foto']."</td> 
                 <td></td> 
                 <td><a href=".echo "Edita.php?id="$registro['edita'].">✍</a></td>
                 <td><a href=".echo "Elimina.php?id="$registro['elimina'].">❌</a></td>
